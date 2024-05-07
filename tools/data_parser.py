@@ -107,6 +107,7 @@ def calculate_wavelet_coefficients(df: pd.DataFrame, period_lower_bound: float, 
 
 def parse_raw_data(file_path: str) -> pd.DataFrame:
     df = pd.read_csv(file_path, parse_dates=['TIMESTAMP'])
+    original_redox_avg_names = [col_name for col_name in list(df.columns.array) if 'Redox_Avg' in col_name]
 
     # Rename columns for prediction
     df.rename(mapper=remove_pit_suffix, axis='columns', inplace=True)
@@ -128,4 +129,4 @@ def parse_raw_data(file_path: str) -> pd.DataFrame:
     # Add wavelet features
     df = calculate_wavelet_coefficients(df, 1/2, 5)
 
-    return df
+    return (df, original_redox_avg_names)

@@ -66,4 +66,4 @@ def get_results(*args, **kwds):
     else:
         single_model_results(args[0], df, scale_data)
     
-    return df
+    return df.loc[df['Redox_error_flag']==True].loc[:, ['TIMESTAMP', 'Redox_Avg(1)', 'Redox_Avg(2)', 'Redox_Avg(3)', 'Redox_Avg(4)', 'Redox_Avg(5)', 'Redox_error_flag']]
