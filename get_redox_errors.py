@@ -95,4 +95,6 @@ if __name__ == '__main__':
     results = inf_serv.get_results(models, df, scale_data=True)
     rename_column_to_original(results, original_redox_avg_names)
     # save results
+    if not os.path.exists('./Results'):
+        os.makedirs('./Results')
     results.to_csv(f'./Results/{output_name}.csv', index=False)
