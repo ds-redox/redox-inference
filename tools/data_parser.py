@@ -8,10 +8,15 @@ col_types = ['int64', 'int64', 'int64', 'int64', 'int64', 'float64', 'int64', 'f
              'int64', 'float64', 'int64', 'float64', 'int64', 'float64', 'float64', 'int64', 'float64', 'float64',
              'float64', 'float64', 'int64', 'float64', 'float64', 'float64', 'float64', 'float64', 'bool']
 
-def remove_duplicated_values(df: pd.DataFrame):
+def remove_duplicated_dates(df: pd.DataFrame):
     init_row_cnt = len(df)
     df.drop_duplicates(subset='TIMESTAMP', inplace=True)
     print('DUPLICATE DATES removed: ', init_row_cnt-len(df))
+
+def fill_na_redox_values(df: pd.DataFrame):
+    for sensor in range(1,6):
+        redox_series = f'Redox_Avg({sensor})'
+        df[redox_series] = df[redox_series].ffill()
 
 def remove_pit_suffix(name: str) -> str:
     """
@@ -119,14 +124,15 @@ def parse_raw_data(file_path: str) -> pd.DataFrame:
     df = fix_types(df)
 
     # Remove duplicated dates
-    remove_duplicated_values(df)
+    remove_duplicated_dates(df)
+
+    # Add wavelet features
+    fill_na_redox_values(df)
+    df = calculate_wavelet_coefficients(df, 1/2, 5)
 
     # Add sigma features
     window_sizes = get_time_windows([12, 24])
     td = timedelta(days = 0, hours = 0, minutes = 5, seconds = 0, milliseconds= 0, weeks = 0)
     df = sigma_feature_engineering(df, window_sizes=window_sizes, td=td)
-
-    # Add wavelet features
-    df = calculate_wavelet_coefficients(df, 1/2, 5)
 
     return (df, original_redox_avg_names)
