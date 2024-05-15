@@ -119,6 +119,7 @@ def parse_raw_data(file_path: str) -> pd.DataFrame:
     
     # Remove features not used in prediction and unkown types
     prune_unnecessary_features(df)
+    df.dropna(inplace=True)
     
     # Fix feature types
     df = fix_types(df)
