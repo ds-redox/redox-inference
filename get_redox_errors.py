@@ -7,6 +7,8 @@ import argparse
 
 import tools.data_parser as dp
 import tools.inference_service as inf_serv
+from PCAGaussianMix import PCAGaussianMix
+from PCAIsolationForest import PCAIsolationForest
 
 __default_model_path = './models/svc_feature_selection_default/'
 
