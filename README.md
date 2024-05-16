@@ -7,6 +7,10 @@ Script for predicting redox errors
 
 [Using ssh with GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
 
+It is recommended to use virtual environment so that the required python packages are the same. [How to set up python virtaul environment](https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/)
+
+Afther these are ready change directory to the project and install required Python packages with `pip install -r requirements.txt`.
+
 # Components & description
 
 The repository containts the main script `get_redox_errors.py` which is called by the user
