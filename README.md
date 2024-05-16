@@ -23,7 +23,7 @@ If sensors specific models are used the script gets predictions for each sensor 
 
 # How to use
 
-Minimum way to run the script `python3 get_redox_errors.py -f "/path/to/file.csv -o my_results"`. All of the script options are defined below.
+Minimum way to run the script `python3 get_redox_errors.py -f "/path/to/file.csv" -o my_results`. All of the script options are defined below.
 
 To get help, run the following command `python3 get_redox_errors.py --help`. This will output description of the script and guide how to use it.
 
